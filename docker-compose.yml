@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  laravel_server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: cb56pos
+    restart: always
+    environment:
+      DATABASE_CONNECTION: mysql
+      DATABASE_HOST: mysql_host 
+      DATABASE_PORT: 3306
+      DATABASE_DATABASE: cb56pos
+      DATABASE_USER: root
+      DATABASE_PASSWORD: root
+    ports:
+      - 8889:80
+    volumes:
+      - ./cb56pos:/var/www
+      - ./cb56pos/public:/var/www/html
+    networks:
+      laravel_net:
+        aliases:
+          - cb56pos_host
+volumes:
+ cb56pos: {}
+networks:
+  laravel_net:
+   name: network_laravel_net
+   driver: bridge
+
